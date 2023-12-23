@@ -10,12 +10,18 @@ func Solver(inputBoard [][]int) [][]int {
 
 	board := newBoard(inputBoard)
 
-	//eliminate possible solutions across rows
-	evaluateRows(board)
+	continueLoop := true
 
-	//eliminate possible solutions across columns
+	for continueLoop {
+		//eliminate possible solutions across rows
+		continueLoop = evaluateRows(board)
 
-	//eliminate possible solutions across boxes
+		//eliminate possible solutions across columns
+		continueLoop = continueLoop || evaluateColumns(board)
+
+		//eliminate possible solutions across boxes
+		continueLoop = continueLoop || evaluateBoxes(board)
+	}
 
 	return convertBoardToSolution(board)
 }
@@ -60,11 +66,25 @@ type Group struct {
 	Cells     map[Coordinate]*BoardCell
 }
 
-func evaluateRows(board *Board) {
+func evaluateRows(board *Board) bool {
+	return evaluateGroup(board.GetRow)
+}
+
+func evaluateColumns(board *Board) bool {
+	return evaluateGroup(board.GetColumn)
+}
+
+func evaluateBoxes(board *Board) bool {
+	return evaluateGroup(board.GetBox)
+}
+
+func evaluateGroup(getGroup func(int) *Group) bool {
+	modified := false
 	for i := 0; i < BOARD_SIZE; i++ {
-		row := board.GetRow(i)
-		eliminateTakenSolutions(row)
+		group := getGroup(i)
+		modified = modified || eliminateTakenSolutions(group)
 	}
+	return modified
 }
 
 func (b *Board) GetRow(index int) *Group {
@@ -128,18 +148,23 @@ func newBoard(board [][]int) *Board {
 	return newBoard
 }
 
-func eliminateTakenSolutions(row *Group) {
+func eliminateTakenSolutions(row *Group) bool {
+	modified := false
 	for _, cell := range row.Cells {
 		if cell.Solution == 0 {
 			for _, possibleSolution := range cell.PossibleSolutions {
 				if anotherCellHasThatSolution(row, possibleSolution) {
 					cell.PossibleSolutions = removePossibleSolution(cell.PossibleSolutions, possibleSolution)
+					modified = true
 				}
 			}
 		}
 	}
+	if modified {
+		SetSolutionIfOnlyOnePossibleSolution(row)
+	}
 
-	SetSolutionIfOnlyOnePossibleSolution(row)
+	return modified
 }
 
 func anotherCellHasThatSolution(row *Group, solution int) bool {

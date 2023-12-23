@@ -6,24 +6,28 @@ const GROUP_TYPE_ROW = "ROW"
 const GROUP_TYPE_COLUMN = "COLUMN"
 const GROUP_TYPE_BOX = "BOX"
 
-func Solver(inputBoard [][]int) [BOARD_SIZE][BOARD_SIZE]int {
+func Solver(inputBoard [][]int) [][]int {
 
 	board := newBoard(inputBoard)
 
 	//eliminate possible solutions across rows
+	evaluateRows(board)
 
 	//eliminate possible solutions across columns
 
 	//eliminate possible solutions across boxes
 
-	var solution [BOARD_SIZE][BOARD_SIZE]int
+	return convertBoardToSolution(board)
+}
 
+func convertBoardToSolution(board *Board) [][]int {
+	solution := make([][]int, BOARD_SIZE)
 	for i := 0; i < BOARD_SIZE; i++ {
+		solution[i] = make([]int, BOARD_SIZE)
 		for j := 0; j < BOARD_SIZE; j++ {
-			solution[i][j] = board.Cells[Coordinate{i, j}].Solution
+			solution[i][j] = board.Cells[Coordinate{Row: i, Column: j}].Solution
 		}
 	}
-
 	return solution
 }
 
@@ -54,6 +58,13 @@ type Group struct {
 	GroupType string
 	Index     int
 	Cells     map[Coordinate]*BoardCell
+}
+
+func evaluateRows(board *Board) {
+	for i := 0; i < BOARD_SIZE; i++ {
+		row := board.GetRow(i)
+		eliminateTakenSolutions(row)
+	}
 }
 
 func (b *Board) GetRow(index int) *Group {
@@ -115,4 +126,45 @@ func newBoard(board [][]int) *Board {
 	}
 
 	return newBoard
+}
+
+func eliminateTakenSolutions(row *Group) {
+	for _, cell := range row.Cells {
+		if cell.Solution == 0 {
+			for _, possibleSolution := range cell.PossibleSolutions {
+				if anotherCellHasThatSolution(row, possibleSolution) {
+					cell.PossibleSolutions = removePossibleSolution(cell.PossibleSolutions, possibleSolution)
+				}
+			}
+		}
+	}
+
+	SetSolutionIfOnlyOnePossibleSolution(row)
+}
+
+func anotherCellHasThatSolution(row *Group, solution int) bool {
+	for _, cell := range row.Cells {
+		if cell.Solution == solution {
+			return true
+		}
+	}
+	return false
+}
+
+func removePossibleSolution(possibleSolutions []int, solution int) []int {
+	var newPossibleSolutions []int
+	for _, possibleSolution := range possibleSolutions {
+		if possibleSolution != solution {
+			newPossibleSolutions = append(newPossibleSolutions, possibleSolution)
+		}
+	}
+	return newPossibleSolutions
+}
+
+func SetSolutionIfOnlyOnePossibleSolution(row *Group) {
+	for _, cell := range row.Cells {
+		if cell.Solution == 0 && len(cell.PossibleSolutions) == 1 {
+			cell.Solution = cell.PossibleSolutions[0]
+		}
+	}
 }

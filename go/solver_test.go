@@ -6,7 +6,7 @@ import (
 )
 
 func TestEasierThanTheEasiest(t *testing.T) {
-	inputBoardArray := [][]int{
+	inputBoardArray := [BOARD_SIZE][BOARD_SIZE]int{
 		{0, 3, 5, 2, 6, 9, 7, 8, 1},
 		{6, 8, 2, 5, 7, 1, 4, 9, 3},
 		{1, 9, 7, 8, 3, 4, 5, 6, 2},
@@ -18,7 +18,7 @@ func TestEasierThanTheEasiest(t *testing.T) {
 		{7, 6, 3, 4, 1, 8, 2, 5, 9},
 	}
 
-	expected := [][]int{
+	expected := [BOARD_SIZE][BOARD_SIZE]int{
 		{4, 3, 5, 2, 6, 9, 7, 8, 1},
 		{6, 8, 2, 5, 7, 1, 4, 9, 3},
 		{1, 9, 7, 8, 3, 4, 5, 6, 2},
@@ -34,7 +34,7 @@ func TestEasierThanTheEasiest(t *testing.T) {
 }
 
 func TestTheEasiest(t *testing.T) {
-	inputBoardArray := [][]int{
+	inputBoardArray := [BOARD_SIZE][BOARD_SIZE]int{
 		{0, 0, 0, 2, 6, 0, 7, 0, 1},
 		{6, 8, 0, 0, 7, 0, 0, 9, 0},
 		{1, 9, 0, 0, 0, 4, 5, 0, 0},
@@ -46,7 +46,7 @@ func TestTheEasiest(t *testing.T) {
 		{7, 0, 3, 0, 1, 8, 0, 0, 0},
 	}
 
-	expected := [][]int{
+	expected := [BOARD_SIZE][BOARD_SIZE]int{
 		{4, 3, 5, 2, 6, 9, 7, 8, 1},
 		{6, 8, 2, 5, 7, 1, 4, 9, 3},
 		{1, 9, 7, 8, 3, 4, 5, 6, 2},
@@ -62,7 +62,7 @@ func TestTheEasiest(t *testing.T) {
 }
 
 func TestTheEasiest2(t *testing.T) {
-	inputBoardArray := [][]int{
+	inputBoardArray := [BOARD_SIZE][BOARD_SIZE]int{
 		{1, 0, 0, 4, 8, 9, 0, 0, 6},
 		{7, 3, 0, 0, 0, 0, 0, 4, 0},
 		{0, 0, 0, 0, 0, 1, 2, 9, 5},
@@ -74,7 +74,7 @@ func TestTheEasiest2(t *testing.T) {
 		{8, 0, 0, 5, 1, 2, 0, 0, 4},
 	}
 
-	expected := [][]int{
+	expected := [BOARD_SIZE][BOARD_SIZE]int{
 		{1, 5, 2, 4, 8, 9, 3, 7, 6},
 		{7, 3, 9, 2, 5, 6, 8, 4, 1},
 		{4, 6, 8, 3, 7, 1, 2, 9, 5},
@@ -93,7 +93,7 @@ func TestTheEasiest2(t *testing.T) {
 //The lone puzzle not taken from https://sandiway.arizona.edu/sudoku/examples.html
 
 func TestModerate(t *testing.T) {
-	inputBoardArray := [][]int{
+	inputBoardArray := [BOARD_SIZE][BOARD_SIZE]int{
 		{5, 8, 0, 2, 0, 0, 0, 0, 6},
 		{0, 0, 7, 0, 0, 0, 0, 0, 4},
 		{0, 0, 9, 7, 0, 6, 5, 2, 0},
@@ -105,7 +105,7 @@ func TestModerate(t *testing.T) {
 		{7, 0, 0, 0, 0, 4, 0, 9, 2},
 	}
 
-	expected := [][]int{
+	expected := [BOARD_SIZE][BOARD_SIZE]int{
 		{5, 8, 4, 2, 9, 1, 7, 3, 6},
 		{2, 6, 7, 5, 3, 8, 9, 1, 4},
 		{3, 1, 9, 7, 4, 6, 5, 2, 8},
@@ -120,7 +120,7 @@ func TestModerate(t *testing.T) {
 }
 
 func TestIntermediate(t *testing.T) {
-	inputBoardArray := [][]int{
+	inputBoardArray := [BOARD_SIZE][BOARD_SIZE]int{
 		{0, 2, 0, 6, 0, 8, 0, 0, 0},
 		{5, 8, 0, 0, 0, 9, 7, 0, 0},
 		{0, 0, 0, 0, 4, 0, 0, 0, 0},
@@ -132,7 +132,7 @@ func TestIntermediate(t *testing.T) {
 		{0, 0, 0, 3, 0, 6, 0, 9, 0},
 	}
 
-	expected := [][]int{
+	expected := [BOARD_SIZE][BOARD_SIZE]int{
 		{1, 2, 3, 6, 7, 8, 9, 4, 5},
 		{5, 8, 4, 2, 3, 9, 7, 6, 1},
 		{9, 6, 7, 1, 4, 5, 3, 2, 8},
@@ -148,7 +148,7 @@ func TestIntermediate(t *testing.T) {
 }
 
 func TestDifficult(t *testing.T) {
-	inputBoardArray := [][]int{
+	inputBoardArray := [BOARD_SIZE][BOARD_SIZE]int{
 		{0, 0, 0, 6, 0, 0, 4, 0, 0},
 		{7, 0, 0, 0, 0, 3, 6, 0, 0},
 		{0, 0, 0, 0, 9, 1, 0, 8, 0},
@@ -160,7 +160,7 @@ func TestDifficult(t *testing.T) {
 		{0, 2, 0, 0, 0, 0, 1, 0, 0},
 	}
 
-	expected := [][]int{
+	expected := [BOARD_SIZE][BOARD_SIZE]int{
 		{5, 8, 1, 6, 7, 2, 4, 3, 9},
 		{7, 9, 2, 8, 4, 3, 6, 5, 1},
 		{3, 6, 4, 5, 9, 1, 7, 8, 2},
@@ -176,7 +176,7 @@ func TestDifficult(t *testing.T) {
 }
 
 func TestDifficult2(t *testing.T) {
-	inputBoardArray := [][]int{
+	inputBoardArray := [BOARD_SIZE][BOARD_SIZE]int{
 		{2, 0, 0, 3, 0, 0, 0, 0, 0},
 		{8, 0, 4, 0, 6, 2, 0, 0, 3},
 		{0, 1, 3, 8, 0, 0, 2, 0, 0},
@@ -188,7 +188,7 @@ func TestDifficult2(t *testing.T) {
 		{0, 0, 0, 0, 0, 1, 0, 0, 2},
 	}
 
-	expected := [][]int{
+	expected := [BOARD_SIZE][BOARD_SIZE]int{
 		{2, 7, 6, 3, 1, 4, 9, 5, 8},
 		{8, 5, 4, 9, 6, 2, 7, 1, 3},
 		{9, 1, 3, 8, 7, 5, 2, 6, 4},
@@ -204,7 +204,7 @@ func TestDifficult2(t *testing.T) {
 }
 
 func TestNotFun(t *testing.T) {
-	inputBoardArray := [][]int{
+	inputBoardArray := [BOARD_SIZE][BOARD_SIZE]int{
 		{0, 2, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 6, 0, 0, 0, 0, 3},
 		{0, 7, 4, 0, 8, 0, 0, 0, 0},
@@ -216,7 +216,7 @@ func TestNotFun(t *testing.T) {
 		{0, 0, 0, 0, 0, 0, 0, 4, 0},
 	}
 
-	expected := [][]int{
+	expected := [BOARD_SIZE][BOARD_SIZE]int{
 		{1, 2, 6, 4, 3, 7, 9, 5, 8},
 		{8, 9, 5, 6, 2, 1, 4, 7, 3},
 		{3, 7, 4, 9, 8, 5, 1, 2, 6},

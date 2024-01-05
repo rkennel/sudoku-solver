@@ -1,6 +1,10 @@
 package main
 
-import "github.com/golang-collections/collections/set"
+import (
+	"fmt"
+	"github.com/golang-collections/collections/set"
+	"strconv"
+)
 
 const BOARD_SIZE = 9
 
@@ -92,6 +96,91 @@ func (board *Board) updatePossibleSolutions() {
 	for continueProcessing {
 		removeTakenSolutions(board)
 		continueProcessing = setSolutionWhereOnlyOnePossibleSolutionsRemains(board)
+	}
+}
+
+func (board *Board) debug() {
+	fmt.Println("Known solutions:", board.countOfKnownSolutions())
+	fmt.Println("Possible solutions:", board.countOfPossibleSolutions())
+	fmt.Println("[")
+	for row := 0; row < BOARD_SIZE; row++ {
+		for col := 0; col < BOARD_SIZE; col++ {
+			cell := board.Cells[row][col]
+			val := " "
+			if cell.Solution != 0 {
+				val = strconv.Itoa(cell.Solution)
+			}
+			fmt.Printf("%v,", val)
+		}
+		fmt.Println()
+	}
+	fmt.Println("]")
+	fmt.Println("")
+}
+
+func (board *Board) countOfKnownSolutions() int {
+	knownSolutions := 0
+	for row := 0; row < BOARD_SIZE; row++ {
+		for col := 0; col < BOARD_SIZE; col++ {
+			if board.Cells[row][col].Solution != 0 {
+				knownSolutions++
+			}
+		}
+	}
+	return knownSolutions
+}
+
+func (board *Board) countOfPossibleSolutions() int {
+	possibleSolutions := 0
+	for row := 0; row < BOARD_SIZE; row++ {
+		for col := 0; col < BOARD_SIZE; col++ {
+			if board.Cells[row][col].Solution == 0 {
+				possibleSolutions = possibleSolutions + board.Cells[row][col].PossibleSolutions.Len()
+			}
+		}
+	}
+	return possibleSolutions
+}
+
+func (board *Board) debugPossibleSolutions() {
+	fmt.Println("Possible solutions:")
+	fmt.Println("-------------------------------------------------------------------------------------------")
+	for row := 0; row < BOARD_SIZE; row++ {
+		fmt.Print("|")
+		for col := 0; col < BOARD_SIZE; col++ {
+			cell := board.Cells[row][col]
+			for i := 0; i < BOARD_SIZE; i++ {
+				possibleSolution := i + 1
+				if cell.PossibleSolutions.Has(possibleSolution) {
+					fmt.Printf("%v", possibleSolution)
+				} else {
+					fmt.Printf(" ")
+				}
+			}
+			fmt.Printf("|")
+		}
+		fmt.Println("")
+		fmt.Println("-------------------------------------------------------------------------------------------")
+	}
+}
+
+func (board *Board) debugPossibleSolutionsCSV() {
+	fmt.Println("Possible solutions:")
+	for row := 0; row < BOARD_SIZE; row++ {
+		for col := 0; col < BOARD_SIZE; col++ {
+			fmt.Print("\"")
+			cell := board.Cells[row][col]
+			for i := 0; i < BOARD_SIZE; i++ {
+				possibleSolution := i + 1
+				if cell.PossibleSolutions.Has(possibleSolution) {
+					fmt.Printf("%v", possibleSolution)
+				} else {
+					fmt.Printf(" ")
+				}
+			}
+			fmt.Printf("\",")
+		}
+		fmt.Println("")
 	}
 }
 

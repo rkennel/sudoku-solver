@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"github.com/golang-collections/collections/set"
 	"github.com/stretchr/testify/assert"
 	"testing"
@@ -125,6 +126,60 @@ func cellArrayContains(box [BOARD_SIZE]*Cell, cell *Cell) bool {
 	return false
 }
 
+func TestGenerateUniqueCombinationOfCellsSize2(t *testing.T) {
+	cells := []*Cell{
+		&Cell{0, 0, 0, set.New()},
+		&Cell{0, 1, 0, set.New()},
+		&Cell{0, 2, 0, set.New()},
+		&Cell{0, 3, 0, set.New()},
+		&Cell{0, 4, 0, set.New()},
+		&Cell{0, 5, 0, set.New()},
+		&Cell{0, 6, 0, set.New()},
+		&Cell{0, 7, 0, set.New()},
+		&Cell{0, 8, 0, set.New()},
+	}
+
+	uniqueCombinations := generateUniqueCombinationsOfCells(cells, 2)
+
+	assert.Equal(t, 36, len(uniqueCombinations))
+}
+
+func TestGenerateUniqueCombinationOfCellsSize3(t *testing.T) {
+	cells := []*Cell{
+		&Cell{0, 0, 0, set.New()},
+		&Cell{0, 1, 0, set.New()},
+		&Cell{0, 2, 0, set.New()},
+		&Cell{0, 3, 0, set.New()},
+		&Cell{0, 4, 0, set.New()},
+		&Cell{0, 5, 0, set.New()},
+		&Cell{0, 6, 0, set.New()},
+		&Cell{0, 7, 0, set.New()},
+		&Cell{0, 8, 0, set.New()},
+	}
+
+	uniqueCombinations := generateUniqueCombinationsOfCells(cells, 3)
+
+	assert.Equal(t, 84, len(uniqueCombinations))
+}
+
+func TestGenerateUniqueCombinationOfCellsSize4(t *testing.T) {
+	cells := []*Cell{
+		&Cell{0, 0, 0, set.New()},
+		&Cell{0, 1, 0, set.New()},
+		&Cell{0, 2, 0, set.New()},
+		&Cell{0, 3, 0, set.New()},
+		&Cell{0, 4, 0, set.New()},
+		&Cell{0, 5, 0, set.New()},
+		&Cell{0, 6, 0, set.New()},
+		&Cell{0, 7, 0, set.New()},
+		&Cell{0, 8, 0, set.New()},
+	}
+
+	uniqueCombinations := generateUniqueCombinationsOfCells(cells, 4)
+
+	assert.Equal(t, 126, len(uniqueCombinations))
+}
+
 func TestEliminateExclusivePairSolution(t *testing.T) {
 	cells := [BOARD_SIZE]*Cell{
 		&Cell{0, 0, 0, set.New(1, 2, 3)},
@@ -141,4 +196,15 @@ func TestEliminateExclusivePairSolution(t *testing.T) {
 	modified := eliminateExclusiveSolutions(cells, 2)
 	assert.True(t, modified)
 	assert.Equal(t, 1, cells[0].PossibleSolutions.Len())
+}
+
+func TestMyUnderstanding(t *testing.T) {
+	nums := []int{1, 2, 3}
+	fmt.Println(nums)
+	modifyNums(&nums)
+	fmt.Println(nums)
+}
+
+func modifyNums(nums *[]int) {
+	*nums = append(*nums, 4)
 }

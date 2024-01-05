@@ -30,7 +30,11 @@ func TestEasierThanTheEasiest(t *testing.T) {
 		{7, 6, 3, 4, 1, 8, 2, 5, 9},
 	}
 
-	assert.Equal(t, expected, Solver(inputBoardArray))
+	board, _ := NewBoard(inputBoardArray)
+	solved := board.Solve()
+
+	assert.True(t, solved)
+	assert.Equal(t, expected, board.AsArray())
 }
 
 func TestTheEasiest(t *testing.T) {
@@ -58,7 +62,11 @@ func TestTheEasiest(t *testing.T) {
 		{7, 6, 3, 4, 1, 8, 2, 5, 9},
 	}
 
-	assert.Equal(t, expected, Solver(inputBoardArray))
+	board, _ := NewBoard(inputBoardArray)
+	solved := board.Solve()
+
+	assert.True(t, solved)
+	assert.Equal(t, expected, board.AsArray())
 }
 
 func TestTheEasiest2(t *testing.T) {
@@ -86,7 +94,11 @@ func TestTheEasiest2(t *testing.T) {
 		{8, 7, 3, 5, 1, 2, 9, 6, 4},
 	}
 
-	assert.Equal(t, expected, Solver(inputBoardArray))
+	board, _ := NewBoard(inputBoardArray)
+	solved := board.Solve()
+
+	assert.True(t, solved)
+	assert.Equal(t, expected, board.AsArray())
 
 }
 
@@ -116,7 +128,11 @@ func TestModerate(t *testing.T) {
 		{6, 4, 3, 9, 2, 7, 8, 5, 1},
 		{7, 5, 8, 6, 1, 4, 3, 9, 2}}
 
-	assert.Equal(t, expected, Solver(inputBoardArray))
+	board, _ := NewBoard(inputBoardArray)
+	solved := board.Solve()
+
+	assert.True(t, solved)
+	assert.Equal(t, expected, board.AsArray())
 }
 
 func TestIntermediate(t *testing.T) {
@@ -144,7 +160,11 @@ func TestIntermediate(t *testing.T) {
 		{7, 4, 5, 3, 1, 6, 8, 9, 2},
 	}
 
-	assert.Equal(t, expected, Solver(inputBoardArray))
+	board, _ := NewBoard(inputBoardArray)
+	solved := board.Solve()
+
+	assert.True(t, solved)
+	assert.Equal(t, expected, board.AsArray())
 }
 
 func TestDifficult(t *testing.T) {
@@ -172,7 +192,11 @@ func TestDifficult(t *testing.T) {
 		{6, 2, 7, 4, 3, 5, 1, 9, 8},
 	}
 
-	assert.Equal(t, expected, Solver(inputBoardArray))
+	board, _ := NewBoard(inputBoardArray)
+	solved := board.Solve()
+
+	assert.True(t, solved)
+	assert.Equal(t, expected, board.AsArray())
 }
 
 func TestDifficult2(t *testing.T) {
@@ -200,7 +224,11 @@ func TestDifficult2(t *testing.T) {
 		{7, 8, 9, 6, 4, 1, 5, 3, 2},
 	}
 
-	assert.Equal(t, expected, Solver(inputBoardArray))
+	board, _ := NewBoard(inputBoardArray)
+	solved := board.Solve()
+
+	assert.True(t, solved)
+	assert.Equal(t, expected, board.AsArray())
 }
 
 func TestNotFun(t *testing.T) {
@@ -228,5 +256,9 @@ func TestNotFun(t *testing.T) {
 		{7, 3, 1, 8, 5, 2, 6, 4, 9},
 	}
 
-	assert.Equal(t, expected, Solver(inputBoardArray))
+	board, _ := NewBoard(inputBoardArray)
+	solved := board.Solve()
+
+	assert.True(t, solved)
+	assert.Equal(t, expected, board.AsArray())
 }
